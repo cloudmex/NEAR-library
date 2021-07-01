@@ -1,5 +1,5 @@
 import { storage, Context } from "near-sdk-as"
-import {Books,BookInfomation} from "../models"
+import {Books,BookInformation} from "../models"
 
 const MAX_DESCRIPTION_LENGTH :i32 =255;
 const MAX_BOOKPAGE_LENGTH :u64 =1200;
@@ -36,7 +36,15 @@ export function AddBook(
   assert(editions >0 ,"the editions is required")
 
    Books.push(
-     new BookInfomation(Books.length,Context.sender,
+     new BookInformation(Books.length,Context.sender,
       isbn,name,description,numpage,author,datepublished,editions,Context.blockTimestamp)
    );
+}
+
+export function getBooks():Array<BookInformation>{
+  const result = new Array<BookInformation>(Books.length);
+  for (let i =0; i< Books.length; i++){
+    result[i] = Books[i];
+  }
+  return result;
 }

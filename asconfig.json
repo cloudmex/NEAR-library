@@ -1,7 +1,6 @@
 {
   "workspaces": [
-    "src/simple",
-    "src/singleton",
+    
     "src/library"
   ]
 }

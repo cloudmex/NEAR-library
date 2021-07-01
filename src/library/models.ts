@@ -15,7 +15,7 @@ type Address = string;
   }
 
   @nearBindgen
-  export class BookInfomation{
+  export class BookInformation{
     id:u64;
     owner: AccountId;
     isbn:string;
@@ -64,4 +64,4 @@ type Address = string;
 
   }
    
-  export let Books = new PersistentVector<BookInfomation>("Books")
+  export let Books = new PersistentVector<BookInformation>("Books")
