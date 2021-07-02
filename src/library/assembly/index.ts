@@ -1,5 +1,5 @@
 import { storage, Context } from "near-sdk-as"
-import {Books,BookInformation,rateL} from "../models"
+import {Books,BookInformation, Rate, RateEnum} from "../models"
 
 const MAX_DESCRIPTION_LENGTH :i32 =255;
 const MAX_BOOKPAGE_LENGTH :u64 =1200;
@@ -55,26 +55,31 @@ export function getBook(id :i32): BookInformation{
   return Books[id];
 }
 
-export function rate(id:i32 ,rateid:i32):string{
-
-  let book = Books[id];
-  let key = Context.sender+rateid.toString()
-  assert(!book.rate.contains(key)," already voted")
-  assert(rateid< Books.length,"we haven't that Book")
-  book.rate.set(key,rateid)
-  
-  return "Book rated";
+export function getNBooks(): u64 {
+  return Books.length;
 }
 
-export function getRateBook(id :i32): Array<BookInformation>{
+/*
+ -----Things that we can add in the future-------------
+
+export function rate(id:i32,valor:i32):BookInformation{
+  assert(id < Books.length,"we haven't that Book")
+  let book = Books[id];
+  let key = Context.sender+id.toString()
+  book.rates.push(new Rate(key,valor))
+  /*Books[id]=book;
+  Books.replace(<i32>id,book)
+  return "Book rated";
+  return book
+}
+
+export function getRateBook(id :i32): Array<Rate>{
   assert(Books.length >0,"we haven't any Books")
   assert(id<= (Books.length-1),"we haven't that Book")
-  const result = new Array<BookInformation>(Books.length);
-  for(let i = 0; i < Books.length; i++) {
-    result[i].rate = Books[id].rate;
+  const result = new Array<Rate>();
+  for(let i = 0; i < Books[id].rates.length; i++) {
+    result[i] = Books[id].rates[i];
   }
   return result;
 }
-
- 
- 
+*/

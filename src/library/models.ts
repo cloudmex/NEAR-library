@@ -7,7 +7,7 @@ type Address = string;
  * rate th books
  * 
  */
- export enum Rated {
+ export enum RateEnum {
     bad,
     regular,
     awesome,
@@ -18,7 +18,6 @@ type Address = string;
   export class BookInformation{
     id:u64;
     owner: string;
-     
     isbn:string;
     name:string;
     description:string;
@@ -26,7 +25,7 @@ type Address = string;
     author:string;
     datepublished:string;
     editions:u64;
-    rate:PersistentMap<AccountId,Rated>;
+    rates:PersistentVector<Rate>;
     comments:PersistentMap<AccountId,string>;
     timestamp: u64;
     /**
@@ -53,8 +52,7 @@ type Address = string;
            this.description=description;
            this.numpage=numpage;
            this.author=author;
-           this.rate= new PersistentMap<AccountId,Rated>("v");
-           this.rate.set(owner,4);
+           this.rates= new PersistentVector<Rate>("rating");
            this.comments = new PersistentMap<AccountId,string>("v");
            this.comments.set(owner,"no comments yet")
            this.datepublished=datepublished;
@@ -64,6 +62,17 @@ type Address = string;
         
 
   }
+   export class Rate{
+      owner:string;
+      rate:RateEnum;
+      constructor(
+         _owner:string,
+         _rate:RateEnum
+      ){
+         this.owner=_owner;
+         this.rate=_rate;
+      }
+   }
    
   export let Books = new PersistentVector<BookInformation>("Books")
   export let rateL = new PersistentMap<AccountId, u32>("rate")
