@@ -1,5 +1,5 @@
 import { storage, Context } from "near-sdk-as"
-import {Books,BookInformation} from "../models"
+import {Books,BookInformation,rateL} from "../models"
 
 const MAX_DESCRIPTION_LENGTH :i32 =255;
 const MAX_BOOKPAGE_LENGTH :u64 =1200;
@@ -49,5 +49,32 @@ export function getBooks():Array<BookInformation>{
   return result;
 }
 
+export function getBook(id :i32): BookInformation{
+  assert(Books.length >0,"we haven't any Books")
+  assert(id<= (Books.length-1),"we haven't that Book")
+  return Books[id];
+}
 
+export function rate(id:i32 ,rateid:i32):string{
+
+  let book = Books[id];
+  let key = Context.sender+rateid.toString()
+  assert(!book.rate.contains(key)," already voted")
+  assert(rateid< Books.length,"we haven't that Book")
+  book.rate.set(key,rateid)
+  
+  return "Book rated";
+}
+
+export function getRateBook(id :i32): Array<BookInformation>{
+  assert(Books.length >0,"we haven't any Books")
+  assert(id<= (Books.length-1),"we haven't that Book")
+  const result = new Array<BookInformation>(Books.length);
+  for(let i = 0; i < Books.length; i++) {
+    result[i].rate = Books[id].rate;
+  }
+  return result;
+}
+
+ 
  

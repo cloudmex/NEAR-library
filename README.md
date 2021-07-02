@@ -66,9 +66,15 @@ Command to get all the books on the library:
 --------------------------------------------
 
 ```bash
-near view getBooks
+near view $CONTRACT getBooks
 ```
 
+Command to get a specific book in the library:
+--------------------------------------------
+
+```bash
+near view $CONTRACT getBook '{"id":int}'
+```
 Command to get all my complaints created:
 --------------------------------------------
 

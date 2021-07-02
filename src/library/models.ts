@@ -66,3 +66,4 @@ type Address = string;
   }
    
   export let Books = new PersistentVector<BookInformation>("Books")
+  export let rateL = new PersistentMap<AccountId, u32>("rate")
