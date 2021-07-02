@@ -3,7 +3,7 @@
 📄 Introduction
 ==================
 
-NEAR Library is a smart contract where you can to create, rate, comment, sotre and transfer books using the NEAR protocol, making a library online where you can request one and change the owner. The following are the main functionalities of this smart contract:
+NEAR Library is a smart contract where you can to create, rate, comment, store and transfer books using the NEAR protocol, making a library online where you can request one book and change the owner. The following are the main functionalities of this smart contract:
 
 1. Add a Book to the library.
 2. Get all the list of Books.
