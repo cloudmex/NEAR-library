@@ -49,9 +49,9 @@ exit 0
 
 
   near call $CONTRACT AddBook '{"isbn":"978-607-14-1124-2",
-        "name":"Veinte mi leguas de viaje submarino2",
+        "name":"Hola",
         "description":"la infortunada expedision a méxico y la victoria de prusia ...",
         "numpage":"176",
         "author":"Julio Verne",
         "datepublished":"marzo del 2013",
-        "editions":"1"}' --account-id dokxo.testnet
+        "editions":"1"}' --account-id joehank.testnet

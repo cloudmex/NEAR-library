@@ -75,62 +75,44 @@ Command to get a specific book in the library:
 ```bash
 near view $CONTRACT getBook '{"id":int}'
 ```
-Command to get all my complaints created:
+
+Command to get the number of Books added:
 --------------------------------------------
 
 ```bash
-near call <your deployed contract> getNumberOfComplaints --accountId <your test account>
+near view <your deployed contract> getNBooks
 ```
 
-Command to get the number of complaints created:
+**Thing that we can add in the future**
+
+Command to rate a book:
 --------------------------------------------
 
 ```bash
-near view <your deployed contract> getNComplaints
+ near call $CONTRACT rate '{"id":3,"valor":2}' --accountId joehank.testnet
 ```
-
-
-Command to see a specific complaint information: 
+Command to see the rates of a book:
 --------------------------------------------
 
 ```bash
-near view <your deployed contract> getComplaintInfo '{"id":integer (id from you complaint)}' --accountId <your test account>
+ near call $CONTRACT rate '{"id":3}' --accountId joehank.testnet
 ```
 
-Command to vote for a complaint: 
+Command to comment a book:
 --------------------------------------------
 
 ```bash
-near call <your deployed contract> voteComplaint '{"id":integer (id from you complaint)}' --accountId <your test account>
+ near call $CONTRACT comment '{"id":3,"comment":"i love it"}' --accountId joehank.testnet
 ```
-
-Command to remote a vote for a complaint that I made: 
+Command to see the rates of a book:
 --------------------------------------------
 
 ```bash
-near call <your deployed contract> removeVote '{"id":integer (id from you complaint)}' --accountId <your test account>
+ near call $CONTRACT getComments '{"id":3}' --accountId joehank.testnet
 ```
 
-Command to change the status (Submited to In progress) of a complaint if you are not the complaint owner (you need to be the solver of the complaint): 
---------------------------------------------
 
-```bash
-near call <your deployed contract> takeComplaint '{"id":integer (id from you complaint)}' --accountId <your test account>
-```
 
-Command to change the status (In progress to Done) of a complaint if you're the complaint owner: 
---------------------------------------------
-
-```bash
-near call <your deployed contract> finishComplaint '{"id":integer (id from you complaint)}' --accountId <your test account>
-```
-
-Command to change the status (Submited to In progress and In progress to Done) of a complaint if you're the complaint owner: 
---------------------------------------------
-
-```bash
-near call <your deployed contract> finishComplaint '{"id":integer (id from you complaint)}' --accountId <your test account>
-```
 
 ### Singleton
 
