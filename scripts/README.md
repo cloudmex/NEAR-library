@@ -1,72 +1,17 @@
-## Setting up your terminal
+📑 Exploring the NEAR library smart contract methods 
+==================
 
-The scripts in this folder are designed to help you demonstrate the behavior of the contract(s) in this project.
+The following commands allow you to interact with the smart contract methods using the NEAR CLI (for this you need to have a provisional smart contract deployed).
 
-It uses the following setup:
+Information: the command for rate will require especific data (AccountId, Rate)
+ 
+Rate values: 
 
-```sh
-# set your terminal up to have 2 windows, A and B like this:
-┌─────────────────────────────────┬─────────────────────────────────┐
-│                                 │                                 │
-│                                 │                                 │
-│                A                │                B                │
-│                                 │                                 │
-│                                 │                                 │
-└─────────────────────────────────┴─────────────────────────────────┘
-```
+    - The value 0 represents a bad rate.
+    - The value 1 represents a regular rate.  
+    - The value 2 represents a awesome rate. 
 
-### Terminal **A**
+Read the documents in order:
 
-*This window is used to compile, deploy and control the contract*
-- Environment
-  ```sh
-  export CONTRACT=        # depends on deployment
-  export OWNER=           # any account you control
-
-  # for example
-  # export CONTRACT=dev-1615190770786-2702449
-  # export OWNER=sherif.testnet
-  ```
-
-- Commands
-
-  _helper scripts_
-  ```sh
-  1.dev-deploy.sh                # helper: build and deploy contracts
-  2.use-contract.sh              # helper: call methods on ContractPromise
-  3.cleanup.sh                   # helper: delete build and deploy artifacts
-  ```
-
-### Terminal **B**
-
-*This window is used to render the contract account storage*
-- Environment
-  ```sh
-  export CONTRACT=               # depends on deployment
-
-  # for example
-  # export CONTRACT=dev-1615190770786-2702449
-  ```
-
-- Commands
-  ```sh
-  # monitor contract storage using near-account-utils
-  # https://github.com/near-examples/near-account-utils
-  watch -d -n 1 yarn storage $CONTRACT
-  ```
----
-
-## OS Support
-
-### Linux
-
-- The `watch` command is supported natively on Linux
-- To learn more about any of these shell commands take a look at [explainshell.com](https://explainshell.com)
-
-### MacOS
-
-- Consider `brew info visionmedia-watch` (or `brew install watch`)
-
-### Windows
-
-- Consider this article: [What is the Windows analog of the Linux watch command?](https://superuser.com/questions/191063/what-is-the-windows-analog-of-the-linuo-watch-command#191068)
+    -`dev-deploy.sh`
+    -`use-contract.sh`

@@ -66,7 +66,7 @@ Command to get all the books on the library:
 --------------------------------------------
 
 ```bash
-near call  getComplaints
+near view getBooks
 ```
 
 Command to get all my complaints created:
