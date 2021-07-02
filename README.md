@@ -83,7 +83,8 @@ Command to get the number of Books added:
 near view <your deployed contract> getNBooks
 ```
 
-**Thing that we can add in the future**
+**Things that we can add in the future**
+==============================
 
 Command to rate a book:
 --------------------------------------------
