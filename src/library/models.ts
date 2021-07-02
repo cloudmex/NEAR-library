@@ -1,4 +1,4 @@
-import { PersistentMap, u128,PersistentVector } from "near-sdk-core";
+import { context ,PersistentMap, u128,PersistentVector } from "near-sdk-core";
 
 type AccountId = string;
 type Address = string;
@@ -17,7 +17,8 @@ type Address = string;
   @nearBindgen
   export class BookInformation{
     id:u64;
-    owner: AccountId;
+    owner: string;
+     
     isbn:string;
     name:string;
     description:string;
@@ -35,7 +36,7 @@ type Address = string;
      */
     constructor(
         id:u64,
-        owner: AccountId,
+        owner:string,
         isbn:string,
         name:string,
         description:string,
@@ -46,7 +47,7 @@ type Address = string;
         timestamp: u64,
         ){
            this.id=id;
-           this.owner=owner;
+           this.owner=context.sender;
            this.isbn=isbn;
            this.name=name;
            this.description=description;
