@@ -21,7 +21,7 @@ echo ---------------------------------------------------------
 echo
 
 # comment out the line below to deploy the other example contract
-near dev-deploy ./build/release/simple.wasm
+near dev-deploy ./build/release/library.wasm
 
 # uncomment the line below to deploy the other example contract
 # near dev-deploy ./build/release/singleton.wasm
@@ -38,10 +38,20 @@ echo "(b) set an environment variable using this account name"
 echo "    see example below (this may not work on Windows)"
 echo
 echo ---------------------------------------------------------
-echo 'export CONTRACT=<dev-###-###>'
+echo 'export CONTRACT=<dev-123-456>'
 # uncomment this line for a useful hint when using the singleton style
 # echo "near call \$CONTRACT init --accountId \$CONTRACT"
 echo ---------------------------------------------------------
 echo
 
 exit 0
+
+
+
+  near call $CONTRACT AddBook '{"isbn":"978-607-14-1124-2",
+        "name":"Veinte mi leguas de viaje submarino2",
+        "description":"la infortunada expedision a méxico y la victoria de prusia ...",
+        "numpage":"176",
+        "author":"Julio Verne",
+        "datepublished":"marzo del 2013",
+        "editions":"1"}' --account-id dokxo.testnet
