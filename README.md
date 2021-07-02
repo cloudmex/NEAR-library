@@ -1,39 +1,129 @@
-# `near-sdk-as` Starter Kit
+# `NEAR Library` Starter Kit
 
-This is a good project to use as a starting point for your AssemblyScript project.
+📄 Introduction
+==================
 
-## Samples
+NEAR Library is a smart contract where you can to create, rate, comment, sotre and transfer books using the NEAR protocol, making a library online where you can request one and change the owner. The following are the main functionalities of this smart contract:
 
-This repository includes a complete project structure for AssemblyScript contracts targeting the NEAR platform.
+1. Add a Book to the library.
+2. Get all the list of Books.
+3. Get only the books that you added. 
+4. Rate a book.
+5. Add a comment where you describe why do you liked... or not.
+6. Transfer the book to another Owner.
 
-The example here is very basic.  It's a simple contract demonstrating the following concepts:
-- a single contract
-- the difference between `view` vs. `change` methods
-- basic contract storage
+📦 Installation
+================
 
-There are 2 AssemblyScript contracts in this project, each in their own folder:
+To run this project locally you need to follow the next steps:
 
-- **simple** in the `src/simple` folder
-- **singleton** in the `src/singleton` folder
+Step 1: Prerequisites
+------------------------------
 
-### Simple
+1. Make sure you've installed [Node.js] ≥ 12 (we recommend use [nvm])
+2. Make sure you've installed yarn: `npm install -g yarn`
+3. Install dependencies: `yarn install`
+4. Create a test near account [NEAR test account]
+5. Install the NEAR CLI globally: [near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain
 
-We say that an AssemblyScript contract is written in the "simple style" when the `index.ts` file (the contract entry point) includes a series of exported functions.
+    yarn install --global near-cli
 
-In this case, all exported functions become public contract methods.
+Step 2: Configure your NEAR CLI
+-------------------------------
 
-```ts
-// return the string 'hello world'
-export function helloWorld(): string {}
+Configure your near-cli to authorize your test account recently created:
 
-// read the given key from account (contract) storage
-export function read(key: string): string {}
+    near login
 
-// write the given value at the given key to account (contract) storage
-export function write(key: string, value: string): string {}
+Step 3: Build and make a smart contract development deploy  
+--------------------------------
 
-// private helper method used by read() and write() above
-private storageReport(): string {}
+Build the NEAR library smart contract code and deploy the local development server: `yarn build:release` (see `package.json` for a full list of `scripts` you can run with `yarn`). This script return to you a provisional smart contract deployed (save it to use later). You can also follow the instructions on the folder *scripts*.
+
+
+📑 Exploring the NEAR library smart contract methods 
+==================
+
+The following commands allow you to interact with the smart contract methods using the NEAR CLI (for this you need to have a provisional smart contract deployed).
+
+Information: the command for rate will require especific data (AccountId, Rate)
+ 
+Rate values: 
+
+    - The value 0 represents a bad rate.
+    - The value 1 represents a regular rate.  
+    - The value 2 represents a awesome rate.    
+
+
+Command to add a book: 
+--------------------------------------------
+
+```bash
+near call $CONTRACT AddBook '{"isbn": "string","name":"string","description":"string","numpage":"number","author":"string","datepublished":"date","editions":"number"}' --account-id <your test account>
+```
+
+Command to get all the books on the library:
+--------------------------------------------
+
+```bash
+near call  getComplaints
+```
+
+Command to get all my complaints created:
+--------------------------------------------
+
+```bash
+near call <your deployed contract> getNumberOfComplaints --accountId <your test account>
+```
+
+Command to get the number of complaints created:
+--------------------------------------------
+
+```bash
+near view <your deployed contract> getNComplaints
+```
+
+
+Command to see a specific complaint information: 
+--------------------------------------------
+
+```bash
+near view <your deployed contract> getComplaintInfo '{"id":integer (id from you complaint)}' --accountId <your test account>
+```
+
+Command to vote for a complaint: 
+--------------------------------------------
+
+```bash
+near call <your deployed contract> voteComplaint '{"id":integer (id from you complaint)}' --accountId <your test account>
+```
+
+Command to remote a vote for a complaint that I made: 
+--------------------------------------------
+
+```bash
+near call <your deployed contract> removeVote '{"id":integer (id from you complaint)}' --accountId <your test account>
+```
+
+Command to change the status (Submited to In progress) of a complaint if you are not the complaint owner (you need to be the solver of the complaint): 
+--------------------------------------------
+
+```bash
+near call <your deployed contract> takeComplaint '{"id":integer (id from you complaint)}' --accountId <your test account>
+```
+
+Command to change the status (In progress to Done) of a complaint if you're the complaint owner: 
+--------------------------------------------
+
+```bash
+near call <your deployed contract> finishComplaint '{"id":integer (id from you complaint)}' --accountId <your test account>
+```
+
+Command to change the status (Submited to In progress and In progress to Done) of a complaint if you're the complaint owner: 
+--------------------------------------------
+
+```bash
+near call <your deployed contract> finishComplaint '{"id":integer (id from you complaint)}' --accountId <your test account>
 ```
 
 ### Singleton
@@ -60,68 +150,6 @@ export class Contract {
   private storageReport(): string {}
 }
 ```
-
-
-## Usage
-
-### Getting started
-
-(see below for video recordings of each of the following steps)
-
-1. clone this repo to a local folder
-2. run `yarn`
-3. run `./scripts/1.dev-deploy.sh`
-3. run `./scripts/2.use-contract.sh`
-4. run `./scripts/2.use-contract.sh` (yes, run it to see changes)
-5. run `./scripts/3.cleanup.sh`
-
-### Videos
-
-**`1.dev-deploy.sh`**
-
-This video shows the build and deployment of the contract.
-
-[![asciicast](https://asciinema.org/a/409575.svg)](https://asciinema.org/a/409575)
-
-**`2.use-contract.sh`**
-
-This video shows contract methods being called.  You should run the script twice to see the effect it has on contract state.
-
-[![asciicast](https://asciinema.org/a/409577.svg)](https://asciinema.org/a/409577)
-
-**`3.cleanup.sh`**
-
-This video shows the cleanup script running.  Make sure you add the `BENEFICIARY` environment variable. The script will remind you if you forget.
-
-```sh
-export BENEFICIARY=<your-account-here>   # this account receives contract account balance
-```
-
-[![asciicast](https://asciinema.org/a/409580.svg)](https://asciinema.org/a/409580)
-
-### Other documentation
-
-- See `./scripts/README.md` for documentation about the scripts
-- Watch this video where Willem Wyndham walks us through refactoring a simple example of a NEAR smart contract written in AssemblyScript
-
-  https://youtu.be/QP7aveSqRPo
-
-  ```
-  There are 2 "styles" of implementing AssemblyScript NEAR contracts:
-  - the contract interface can either be a collection of exported functions
-  - or the contract interface can be the methods of a an exported class
-
-  We call the second style "Singleton" because there is only one instance of the class which is serialized to the blockchain storage.  Rust contracts written for NEAR do this by default with the contract struct.
-
-   0:00 noise (to cut)
-   0:10 Welcome
-   0:59 Create project starting with "npm init"
-   2:20 Customize the project for AssemblyScript development
-   9:25 Import the Counter example and get unit tests passing
-  18:30 Adapt the Counter example to a Singleton style contract
-  21:49 Refactoring unit tests to access the new methods
-  24:45 Review and summary
-  ```
 
 
 ## The file system
